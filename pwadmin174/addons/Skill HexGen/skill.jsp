@@ -1,74 +1,74 @@
 <%@ page import="java.util.*"%>
 
 <%!
- 	String toHexString(int x)
-  	{
-		String result = Integer.toHexString(x);
-		if(result.length() == 1)
-		{
-			result = "0" + result;
-		}
+    String toHexString(int x)
+    {
+        String result = Integer.toHexString(x);
+        if(result.length() == 1)
+        {
+            result = "0" + result;
+        }
 
-		result += "000000";
+        result += "000000";
 
-		return result;
-  	}
+        return result;
+    }
 %>
 
 <%
-	String skillName;
-	int skillValue;
-	String skillList = "";
-	int skillCount=0;
+    String skillName;
+    int skillValue;
+    String skillList = "";
+    int skillCount=0;
 
-	for(Enumeration e = request.getParameterNames(); e.hasMoreElements();)
-	{
-		skillName = (String)e.nextElement();
-		skillValue = Integer.parseInt(request.getParameter(skillName));
-		if(skillValue>0 && skillCount<256 && skillValue<11 && skillName.length()==8)
-		{
-			//out.println(skillName + "=" + toHexString(skillValue) + "<br>");
-			skillList += skillName + "00000000" + toHexString(skillValue);
-			skillCount++;
-		}
-	}
+    for(Enumeration e = request.getParameterNames(); e.hasMoreElements();)
+    {
+        skillName = (String)e.nextElement();
+        skillValue = Integer.parseInt(request.getParameter(skillName));
+        if(skillValue>0 && skillCount<256 && skillValue<11 && skillName.length()==8)
+        {
+            skillList += skillName + "00000000" + toHexString(skillValue);
+            skillCount++;
+        }
+    }
 %>
 
-<html>
-
+<!DOCTYPE html>
+<html lang="vi">
 <head>
-	<link rel="shortcut icon" href="../../include/fav.ico">
-	<link rel="stylesheet" type="text/css" href="../../include/style.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" href="../../include/fav.ico">
+    <link rel="stylesheet" type="text/css" href="../../include/phoenix.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 </head>
+<body style="background:transparent; padding:16px;">
 
-<body>
+<div class="phx-page-header">
+    <h1><i class="fa-solid fa-code" style="color:var(--phx-primary)"></i> Skill Hex XML</h1>
+    <p>Generated skill hex string</p>
+</div>
 
-<table width="500px" align="center" cellpadding="0" cellspacing="0" style="table-layout: fixed; border: 1px solid #cccccc;">
+<div class="phx-card">
+    <div class="phx-card-header">
+        <h2><i class="fa-solid fa-file-code"></i> XML Output</h2>
+    </div>
+    <div style="margin-bottom:12px;">
+        <p style="color:var(--phx-text-2);">
+            <code style="color:var(--phx-text);">&lt;variable name="skills" type="Octets"&gt;</code>
+        </p>
+    </div>
+    <textarea class="phx-input" name="skill" wrap="hard" rows="5" style="width:100%;font-family:var(--phx-font-mono);min-height:120px;"><%out.println(toHexString(skillCount)+skillList);%></textarea>
+    <div style="margin-top:12px;">
+        <p style="color:var(--phx-text-2);">
+            <code style="color:var(--phx-text);">&lt;/variable&gt;</code>
+        </p>
+    </div>
+</div>
 
-<tr>
-	<th align="center" style="padding: 5px;">XML</th>
-</tr>
-
-<tr bgcolor="#f0f0f0">
-	<td align="center"><b>&lt;variable name="skills" type="Octets"&gt;</b></td>
-</tr>
-
-<tr>
-	<td align="center" valign="top"><textarea name="skill" wrap="hard" rows="5" style="width: 100%;"><%out.println(toHexString(skillCount)+skillList);%></textarea></td>
-</tr>
-
-<tr bgcolor="#f0f0f0">
-	<td align="center"><b>&lt;/variable&gt;</b></td>
-</tr>
-
-</table>
-
-<br>
-<br>
-<center>
-<a href="javascript: history.back()"><img src="btn/back.png" height="20" width="60" onmouseover="this.src='btn/backM.png'" height='20' width='60'; onmouseout="this.src='btn/back.png'" height='20' width='60';</a>
-</center>
+<div style="text-align:center; margin-top:16px;">
+    <a href="javascript: history.back()" class="phx-btn phx-btn-ghost"><i class="fa-solid fa-arrow-left"></i> Back</a>
+</div>
 
 </body>
-
 </html>

@@ -1,4 +1,4 @@
-<%@page contentType="text/html; charset=UTF-8"%>
+<%@page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@page import="java.lang.*"%>
 <%@page import="java.sql.*"%>
 <%@page import="java.util.*"%>
@@ -6,32 +6,33 @@
 <%@page import="java.text.*"%>
 <%@page import="org.apache.commons.lang.StringEscapeUtils"%>
 <%@include file="../../WEB-INF/.pwadminconf.jsp"%>
+<%@include file="../../WEB-INF/lang_vi.jsp"%>
 
 <%
     String chatFilePath = application.getRealPath("chat_messages.txt");
     String lastRotatedPath = application.getRealPath("last_chat_rotated.txt");
     File chatFile = new File(chatFilePath);
     File lastRotatedFile = new File(lastRotatedPath);
-	
+
 	String user = (String) session.getAttribute("chatUser");
     boolean nameSet = session.getAttribute("nameSet") != null && (Boolean) session.getAttribute("nameSet");
-    
+
     Object onlineUsersObj = application.getAttribute("onlineUsers");
 	Map<String, Long> onlineUsers;
-    
+
 	if(onlineUsersObj instanceof Map){
         onlineUsers = (Map<String, Long>) onlineUsersObj;
     } else {
         onlineUsers = new HashMap<String, Long>();
     }
-    
+
     application.setAttribute("onlineUsers", onlineUsers);
-	
+
 	if(user != null){
 		onlineUsers.put(user, System.currentTimeMillis());
 	}
-	
-    
+
+
 	if (request.getParameter("setUsername") != null) {
         String newName = request.getParameter("newName");
         if (newName != null && !newName.trim().isEmpty()) {
@@ -44,18 +45,18 @@
         }
         response.sendRedirect("index.jsp");
     }
-	
+
     if (request.getParameter("editUsername") != null) {
 		session.removeAttribute("nameSet");
         response.sendRedirect("index.jsp");
     }
-	
+
 	if(user == null){
 		user = "Guest" + new Random().nextInt(1000);
 		session.setAttribute("chatUser", user);
 	}
 
-	
+
     SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
     String timestamp = sdf.format(new java.util.Date());
 
@@ -96,14 +97,14 @@
     } catch(Exception e) {
         e.printStackTrace();
     }
-    
+
     if(request.getParameter("clearChat") != null) {
         if (chatFile.exists()) {
             chatFile.delete();
         }
         response.sendRedirect("index.jsp");
     }
-     
+
     if(request.getParameter("message") != null) {
         String message = request.getParameter("message");
          java.io.FileWriter fw = null;
@@ -118,176 +119,158 @@
 			 try { if (bw != null) bw.close(); } catch (IOException e) {}
              try { if(fw != null) fw.close(); } catch(IOException e) {}
 		}
-        
+
         response.sendRedirect("index.jsp");
     }
-	
-	
+
+
 	if(session.getAttribute("chatUser") != null){
 		String sessionUser = (String) session.getAttribute("chatUser");
-	
+
 		if (onlineUsers.containsKey(sessionUser)) {
 			onlineUsers.put(sessionUser, System.currentTimeMillis());
 		}
-		
+
 	}
-	
-	
+
+
 	long currentTime = System.currentTimeMillis();
 	long timeout = 60000; //1 minute in milliseconds
 
-	
+
 	List<String> usersToRemove = new ArrayList<String>();
 	for(Map.Entry<String, Long> entry: onlineUsers.entrySet()){
 		if(currentTime - entry.getValue() > timeout){
 			usersToRemove.add(entry.getKey());
 		}
 	}
-	
+
 	for(String removeUser: usersToRemove){
 		onlineUsers.remove(removeUser);
 	}
-	
-	
+
 
 %>
 
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Simple Chat Plugin</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Panel Chat</title>
+    <link rel="stylesheet" type="text/css" href="../../include/phoenix.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <style>
-        body {
-            font-family: sans-serif;
-            background-color: #222;
-            color: #eee;
-            margin: 20px;
-			display: flex;
-			flex-direction: column;
-        }
-		h1 {
-		  margin-bottom: 20px;
-		}
         #chat-box {
-            border: 1px solid #555;
+            border: 1px solid var(--phx-border);
             padding: 10px;
             height: 300px;
             overflow-y: scroll;
             margin-bottom: 10px;
-            background-color: #333;
-			flex: 1;
+            background: var(--phx-surface-2);
+            border-radius: var(--phx-radius);
+            flex: 1;
         }
-
         .chat-message {
             margin-bottom: 5px;
-            padding: 5px;
-            background-color: #444;
-			border-radius: 5px;
+            padding: 8px 12px;
+            background: var(--phx-surface-3);
+            border-radius: var(--phx-radius-sm);
+            border-left: 3px solid var(--phx-primary);
         }
-
         .timestamp {
-            color: #999;
-            font-size: 0.8em;
-			margin-right: 5px;
+            color: var(--phx-text-3);
+            font-size: 0.75em;
+            margin-right: 5px;
         }
-
         .user {
             font-weight: bold;
-			margin-right: 5px;
+            color: var(--phx-primary);
+            margin-right: 5px;
         }
-		.text {
-
-		}
-
-        form input[type="text"] {
-            padding: 8px;
-            border: 1px solid #555;
-            background-color: #444;
-            color: #eee;
-        }
-		
-		form button {
-			padding: 8px 15px;
-			background-color: #555;
-			color: #eee;
-			border: none;
-		}
-		form button:hover{
-			background-color: #777;
-		}
-		
-		label{
-			display: block;
-			margin-bottom: 5px;
-		}
-		#user-list {
-			background-color: #333;
-			border: 1px solid #555;
-			padding: 10px;
-			margin-top: 10px;
-			max-height: 150px;
-			overflow-y: auto;
-			width: 200px;
-			position: absolute;
-			top: 20px;
-			right: 20px;
-		}
-
-		
     </style>
 </head>
 <body>
-    <h1>Chat</h1>
-    <% if (!nameSet) {%>
-    <form action="index.jsp" method="post">
-        <label for="newName">Set Your Name:</label>
-        <input type="text" id="newName" name="newName" required>
-         <button type="submit" name="setUsername">Set Name</button>
-    </form>
-    <% } else {%>
-    
-	    <p>Logged in as: <%= StringEscapeUtils.escapeHtml(user) %> </p>
-		<div style="display: flex; flex-direction: row; align-items: flex-start; ">
-		<div id="user-list">
-				<p><b>Online Users:</b></p>
-				<ul>
-					<%
-						for (String onlineUser : onlineUsers.keySet()) {
-							out.println("<li>" + StringEscapeUtils.escapeHtml(onlineUser) + "</li>");
-						}
-					%>
-				</ul>
-		</div>
-			<div style="flex: 1;">
-				<div id="chat-box">
-				<% if (chatFile.exists()) {
-					java.io.BufferedReader br = null;
-					try {
-						br = new java.io.BufferedReader(new java.io.FileReader(chatFile));
-						String line;
-						while ((line = br.readLine()) != null) {
-							 out.println(line);
-						 }
-					 } catch (IOException e) {
-						e.printStackTrace();
-					 } finally {
-						 try { if (br != null) br.close(); } catch (IOException e) {}
-					 }
-				 } %>
-				</div>
-				<form action="index.jsp" method="post" style="display: flex;">
-					<input type="text" name="message" autocomplete="off" required style="flex: 1;">
-					<button type="submit">Send</button>
-				</form>
-				<form action="index.jsp" method="post">
-					<button type="submit" name="clearChat">Clear Chat</button>
-				</form>
-				<form action="index.jsp" method="post">
-					<button type="submit" name="editUsername">Edit Name</button>
-				</form>
-			</div>
-		</div>
-		
-    <% } %>
+    <div class="phx-main" style="max-width: 800px; margin: 40px auto;">
+        <div class="phx-page-header">
+            <h1><i class="fa-solid fa-comments"></i> <%= T("chat.title") %></h1>
+            <p><%= T("chat.subtitle") %></p>
+        </div>
+
+        <% if (!nameSet) {%>
+        <div class="phx-card">
+            <div class="phx-card-header">
+                <h2><i class="fa-solid fa-user-pen"></i> <%= T("chat.set_name") %></h2>
+            </div>
+            <form action="index.jsp" method="post" style="display: flex; align-items: end; gap: 10px; flex-wrap: wrap;">
+                <div style="flex: 1; min-width: 200px;">
+                    <label class="phx-label" for="newName"><i class="fa-solid fa-tag"></i> Chọn tên hiển thị:</label>
+                    <input class="phx-input" type="text" id="newName" name="newName" required placeholder="Nhập tên hiển thị">
+                </div>
+                <button type="submit" name="setUsername" class="phx-btn phx-btn-primary"><i class="fa-solid fa-check"></i> <%= T("chat.set_name_btn") %></button>
+            </form>
+        </div>
+        <% } else {%>
+
+        <div class="phx-card" style="position: relative; min-height: 420px;">
+            <!-- User list -->
+            <div id="user-list" class="phx-card" style="position: absolute; top: 16px; right: 16px; width: 220px; max-height: 180px; overflow-y: auto; padding: 16px; z-index: 10;">
+                <div style="font-weight: 600; font-size: var(--phx-font-size-sm); color: var(--phx-text-2); margin-bottom: 8px; border-bottom: 1px solid var(--phx-border); padding-bottom: 8px;">
+                    <i class="fa-solid fa-users" style="color: var(--phx-primary); margin-right: 6px;"></i> Người dùng Online
+                </div>
+                <ul style="list-style: none; padding: 0; margin: 0;">
+                    <%
+                        for (String onlineUser : onlineUsers.keySet()) {
+                            out.println("<li style=\"padding: 4px 0; border-bottom: 1px solid var(--phx-border); font-size: var(--phx-font-size-sm); display: flex; align-items: center;\">");
+                            out.println("<span class=\"phx-status-dot online\" style=\"margin-right: 8px; flex-shrink: 0;\"></span>");
+                            out.println(StringEscapeUtils.escapeHtml(onlineUser));
+                            out.println("</li>");
+                        }
+                    %>
+                </ul>
+            </div>
+
+            <!-- Chat area -->
+            <div style="margin-right: 240px;">
+                <p style="margin-bottom: 12px; font-size: var(--phx-font-size-sm); color: var(--phx-text-2);">
+                    <i class="fa-solid fa-circle" style="color: var(--phx-success); font-size: 0.5rem; vertical-align: middle; margin-right: 4px;"></i>
+                    Đã đăng nhập: <strong style="color: var(--phx-primary);"><%= StringEscapeUtils.escapeHtml(user) %></strong>
+                </p>
+
+                <div id="chat-box">
+                <% if (chatFile.exists()) {
+                    java.io.BufferedReader br = null;
+                    try {
+                        br = new java.io.BufferedReader(new java.io.FileReader(chatFile));
+                        String line;
+                        while ((line = br.readLine()) != null) {
+                             out.println(line);
+                         }
+                     } catch (IOException e) {
+                        e.printStackTrace();
+                     } finally {
+                         try { if (br != null) br.close(); } catch (IOException e) {}
+                     }
+                 } %>
+                </div>
+
+                <form action="index.jsp" method="post" style="display: flex; gap: 8px; margin-bottom: 8px;">
+                    <input class="phx-input" type="text" name="message" autocomplete="off" required placeholder="Nhập tin nhắn..." style="flex: 1;">
+                    <button type="submit" class="phx-btn phx-btn-primary"><i class="fa-solid fa-paper-plane"></i> <%= T("chat.send_btn") %></button>
+                </form>
+
+                <div class="phx-btn-group">
+                    <form action="index.jsp" method="post">
+                        <button type="submit" name="clearChat" class="phx-btn phx-btn-danger phx-btn-sm"><i class="fa-solid fa-trash-can"></i> <%= T("chat.clear_btn") %></button>
+                    </form>
+                    <form action="index.jsp" method="post">
+                        <button type="submit" name="editUsername" class="phx-btn phx-btn-ghost phx-btn-sm"><i class="fa-solid fa-pen"></i> <%= T("chat.edit_name_btn") %></button>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <% } %>
+    </div>
 </body>
 </html>

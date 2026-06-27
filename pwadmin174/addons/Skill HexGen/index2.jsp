@@ -1,14 +1,21 @@
-<html>
+<!DOCTYPE html>
+<html lang="vi">
 
 <head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<link rel="shortcut icon" href="../../include/fav.ico">
-	<link rel="stylesheet" type="text/css" href="../../include/style.css">
+	<link rel="stylesheet" type="text/css" href="../../include/phoenix.css">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 </head>
 
-<body>
+<body style="background:transparent; padding:16px;">
+
+<div class="phx-page-header"><h1><i class="fa-solid fa-code" style="color:var(--phx-primary)"></i> Skill HexGen</h1></div>
 
 <form action="skill.jsp" method="post">
 
+<div class="phx-card" style="margin-top:16px;">
 <table align="center" cellpadding="2" cellspacing="0" style="border: 3px solid #cccccc;">
 	
 	<tr>
@@ -2979,15 +2986,17 @@
 </tr>
 
 </table>
+</div>
+
 <!-- ######################################################## -->
 <br>
 <br>
 <center>
-<a href="javascript: history.back()"><img src="btn/back.png" height="20" width="60" onmouseover="this.src='btn/backM.png'" height='20' width='60'; onmouseout="this.src='btn/back.png'" height='20' width='60';</a>
+<a href="javascript:history.back()" class="phx-btn phx-btn-ghost"><i class="fa-solid fa-arrow-left"></i> Back</a>
 </center>
 <br>
 <center>
-<input type="image" src="btn/sub.png" height="20" width="60" onmouseover="this.src='btn/subM.png'" height='20' width='60'; onmouseout="this.src='btn/sub.png'" height='20' width='60'; ></input>
+<button class="phx-btn phx-btn-primary"><i class="fa-solid fa-check"></i> Generate</button>
 </center>
 
 </form>

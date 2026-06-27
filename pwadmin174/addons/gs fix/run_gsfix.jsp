@@ -41,7 +41,7 @@
 
 
     } else {
-         out.println("Error: GS Path was empty. Please provide a path!");
+         out.println("Lỗi: Đường dẫn GS trống. Vui lòng cung cấp đường dẫn!");
     }
 
 %>

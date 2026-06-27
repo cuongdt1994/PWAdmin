@@ -1,4 +1,4 @@
-<%@page contentType="text/html; charset=UTF-8"%>
+<%@page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@page import="java.lang.*"%>
 <%@page import="java.sql.*"%>
 <%@page import="java.util.*"%>
@@ -9,6 +9,17 @@
 <%@page import="org.apache.catalina.util.Base64"%>
 <%@page import="java.util.Date"%>
 <%@include file="../../WEB-INF/.pwadminconf.jsp"%>
+<%@include file="../../WEB-INF/lang_vi.jsp"%>
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" href="../../include/fav.ico">
+    <link rel="stylesheet" type="text/css" href="../../include/phoenix.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+</head>
+<body style="background:transparent; padding:16px;">
 <%
     String logFilePath = application.getRealPath("iplog.txt");
     String lastRotatedPath = application.getRealPath("lastrotated.txt");
@@ -16,11 +27,11 @@
     StringWriter sw = new StringWriter();
     PrintWriter pw = new PrintWriter(sw);
       Boolean logged = (Boolean)session.getAttribute("ipLogged");
-  	SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+    SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
     String timestamp = sdf.format(new Date());
      File lastRotatedFile = new File(lastRotatedPath);
      File logFile = new File(logFilePath);
-     
+
      try {
        if(lastRotatedFile.exists()) {
          BufferedReader br = new BufferedReader(new FileReader(lastRotatedFile));
@@ -57,9 +68,9 @@
                bw.close();
          }
      } catch(Exception e) {
-        
+
      }
-    
+
         try {
            if(logged == null || !logged) {
                FileWriter fw = new FileWriter(logFile, true);
@@ -68,37 +79,44 @@
             bw.close();
               session.setAttribute("ipLogged", true);
            }
-           
+
             boolean showLog = request.getParameter("showlog") != null && request.getParameter("showlog").equals("true");
             if(request.getParameter("showlog") == null) {
                  showLog = true;
             }
              if(showLog) {
-                    out.println("<h1>IP Logs</h1>");
-              out.println("<table border=1 style='width: 100%; border-collapse: collapse;'>");
-              out.println("<thead style='background-color: #f0f0f0;'>");
-              out.println("<tr>");
-            out.println("<th style='padding: 8px; border: 1px solid #ddd;'>Time</th>");
-              out.println("<th style='padding: 8px; border: 1px solid #ddd;'>IP</th>");
-              out.println("</tr>");
-             out.println("</thead>");
-                out.println("<tbody>");
+%>
+<div class="phx-page-header">
+    <h1><i class="fa-solid fa-list-check" style="color:var(--phx-primary)"></i> <%= T("iplog.title") %></h1>
+    <p><%= T("iplog.subtitle") %></p>
+</div>
+<div class="phx-table-wrap">
+    <table class="phx-table">
+        <thead>
+            <tr><th><%= T("iplog.time") %></th><th><%= T("iplog.ip") %></th></tr>
+        </thead>
+        <tbody>
+<%
                     if(logFile.exists()) {
                        BufferedReader br = new BufferedReader(new FileReader(logFile));
                      String line;
                      while((line = br.readLine()) != null) {
                        out.println("<tr>");
-                    out.println("<td style='padding: 8px; border: 1px solid #ddd;'>" + StringEscapeUtils.escapeHtml(line.substring(0,19)) + "</td>");
-                       out.println("<td style='padding: 8px; border: 1px solid #ddd;'>" + StringEscapeUtils.escapeHtml(line.substring(23)) + "</td>");
+                    out.println("<td>" + StringEscapeUtils.escapeHtml(line.substring(0,19)) + "</td>");
+                       out.println("<td style=\"font-family:var(--phx-font-mono);\">" + StringEscapeUtils.escapeHtml(line.substring(23)) + "</td>");
                         out.println("</tr>");
                    }
                   br.close();
              }
-                out.println("</tbody>");
-             out.println("</table>");
+%>
+        </tbody>
+    </table>
+</div>
+<%
              }
         } catch (IOException e) {
-          
+
         }
-        
 %>
+</body>
+</html>

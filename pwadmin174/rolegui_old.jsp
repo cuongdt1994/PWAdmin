@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
-<%@ page import="java.io.*, java.net.*, javax.xml.parsers.*, javax.xml.transform.*, javax.xml.transform.dom.*, javax.xml.transform.stream.*, org.w3c.dom.*, java.nio.charset.StandardCharsets, java.util.*" %>
+<%@ page import="java.io.*, java.net.*, javax.xml.parsers.*, javax.xml.transform.*, javax.xml.transform.dom.*, javax.xml.transform.stream.*, org.w3c.dom.*, java.util.*" %>
 <%@ include file="WEB-INF/.pwadminconf.jsp" %>
 <!DOCTYPE html>
 <html>
@@ -184,7 +184,7 @@
             xml = result.toString(); // Save the result 
             DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
             DocumentBuilder builder = factory.newDocumentBuilder();
-            ByteArrayInputStream input = new ByteArrayInputStream(xml.getBytes(StandardCharsets.UTF_8));
+            ByteArrayInputStream input = new ByteArrayInputStream(xml.getBytes("UTF-8"));
             doc = builder.parse(input);
 
             
@@ -949,6 +949,6 @@
     </div>
     <center><br><br><button class="button is-info is-small">Save</button></center>  
 </form>    
-<!--<div class="box mt-5 debug-output"><%=error%><br><%=debugOutput%></div>-->
+<%-- Debug output disabled: error and debugOutput --%>
 </body>
 </html>

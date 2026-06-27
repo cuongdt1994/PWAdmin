@@ -6,15 +6,17 @@
     ╚══════════════════════════════════════════════════════════════╝
 
     Cách sử dụng trong các trang JSP:
-      1. Include file này: <%@include file="WEB-INF/lang_vi.jsp"%>
-      2. Dùng biến L: <%= L.get("key") %>
+      1. Include file này bằng JSP include directive trong trang cần sử dụng
+      2. Dùng hàm T("key") hoặc Tf("key", args) để lấy chuỗi
       3. Nếu key không tồn tại, sẽ hiển thị key gốc (an toàn, không lỗi)
 
     ĐỂ SỬA TIẾNG VIỆT: Chỉ cần sửa file này, không cần đụng vào các trang JSP.
     ĐỂ THÊM NGÔN NGỮ MỚI: Copy file này thành lang_en.jsp, lang_zh.jsp, v.v...
 --%>
-<%
-    java.util.Map<String, String> L = new java.util.HashMap<String, String>();
+<%!
+    private static final java.util.Map<String, String> L = new java.util.HashMap<String, String>();
+
+    static {
 
     // ╔══════════════════════════════════════════════════════════════╗
     // ║                   THANH ĐIỀU HƯỚNG (NAVBAR)                ║
@@ -90,7 +92,7 @@
     L.put("sctrl.msg.backup_started", "Đã Bắt Đầu Sao Lưu -> ");
     L.put("sctrl.msg.backup_failed",  "Sao Lưu Thất Bại");
     L.put("sctrl.msg.backup_running", "Đang có Sao Lưu Server chạy, vui lòng đợi đến khi hoàn tất! Nhấn <a href=\"index.jsp?page=serverctrl\">vào đây</a> để kiểm tra lại...");
-    L.put("sctrl.msg.gs01_starting",  "Đang tự động khởi động bản đồ gs01 (Thế Giới)...");
+    L.put("sctrl.msg.gs01_starting",  "Đã tự động khởi động 2 map mặc định: gs01 (Thế Giới) + is61 (Điểm Bắt Đầu)...");
 
     // ╔══════════════════════════════════════════════════════════════╗
     // ║                TÊN BẢN ĐỒ (MAP NAMES)                      ║
@@ -368,6 +370,244 @@
     L.put("denied.subtitle", "IP của bạn (%s) không có trong danh sách cho phép (whitelist).");
 
     // ╔══════════════════════════════════════════════════════════════╗
+    // ║                   ADDONS - TRANG CHÍNH                      ║
+    // ╚══════════════════════════════════════════════════════════════╝
+    L.put("addons.title",             "DANH SÁCH PLUGIN");
+    L.put("addons.subtitle",          "Danh sách plugin đã cài đặt");
+    L.put("addons.plugins",           "Plugins");
+    L.put("addons.search_plugins",    "+ Tìm Plugin +");
+
+    // ╔══════════════════════════════════════════════════════════════╗
+    // ║              ADDONS - GM CONTROL (Quản lý GM)              ║
+    // ╚══════════════════════════════════════════════════════════════╝
+    L.put("gmctrl.title",             "Quản lý GameMaster");
+    L.put("gmctrl.subtitle",          "Quản lý tài khoản GM và nhân vật");
+    L.put("gmctrl.login_required",    "Đăng nhập để sử dụng Quản lý GM...");
+    L.put("gmctrl.gm_list",           "Danh sách Game Master");
+    L.put("gmctrl.account_char",      "Tài khoản / Nhân vật");
+    L.put("gmctrl.occupation",        "Lớp");
+    L.put("gmctrl.level",             "Cấp");
+    L.put("gmctrl.remove_gm",         "Thu hồi GM");
+    L.put("gmctrl.permissions",       "Phân quyền");
+    L.put("gmctrl.db_failed",         "Kết nối đến cơ sở dữ liệu MySQL thất bại");
+    L.put("gmctrl.perm_editor",       "Trình chỉnh sửa phân quyền");
+    L.put("gmctrl.perm_subtitle",     "Quản lý quyền hạn GM");
+    L.put("gmctrl.perm_full",         "Quản lý quyền hạn GM (Đầy đủ)");
+    L.put("gmctrl.perm_for_acct",     "Phân quyền tài khoản: %d");
+    L.put("gmctrl.enable_all",        "Bật tất cả");
+    L.put("gmctrl.disable_all",       "Tắt tất cả");
+    L.put("gmctrl.description",       "Mô tả");
+    L.put("gmctrl.cmd_id",            "cmd ID");
+    L.put("gmctrl.allowed",           "Cho phép");
+    L.put("gmctrl.always",            "luôn có");
+    L.put("gmctrl.save",              "Lưu");
+    L.put("gmctrl.back",              "Quay lại");
+    L.put("gmctrl.no_search",         "Không có tham số tìm kiếm...");
+    L.put("gmctrl.perm_applied",      "Đã áp dụng phân quyền, bạn có thể cần khởi động lại authd để thay đổi có hiệu lực.");
+    // GM Permission descriptions
+    L.put("gmctrl.perm.gm_tag",               "Thẻ GM");
+    L.put("gmctrl.perm.create_object",        "Tạo vật phẩm");
+    L.put("gmctrl.perm.switch_name_id",       "Đổi tên và ID người chơi");
+    L.put("gmctrl.perm.hidden_invincible",    "Trạng thái ẩn hoặc bất tử");
+    L.put("gmctrl.perm.switch_online",        "Chuyển trạng thái online");
+    L.put("gmctrl.perm.hide_online",          "Ẩn trạng thái online khỏi chat");
+    L.put("gmctrl.perm.teleport_to_player",   "Dịch chuyển đến người chơi");
+    L.put("gmctrl.perm.teleport_player_to_gm","Dịch chuyển người chơi đến GM");
+    L.put("gmctrl.perm.teleport_ctrl_click",  "Dịch chuyển bằng ctrl+click bản đồ");
+    L.put("gmctrl.perm.show_online",          "Hiển thị số người online");
+    L.put("gmctrl.perm.ban_player",           "Cấm tài khoản/nhân vật");
+    L.put("gmctrl.perm.mute_player",          "Khóa chat tài khoản/nhân vật");
+    L.put("gmctrl.perm.ban_trading",          "Cấm giao dịch");
+    L.put("gmctrl.perm.ban_selling",          "Cấm bán hàng");
+    L.put("gmctrl.perm.gm_broadcast",         "Thông báo toàn server (GM)");
+    L.put("gmctrl.perm.restart_gameserver",   "Khởi động lại gameserver");
+    L.put("gmctrl.perm.create_monster",       "Tạo quái vật");
+    L.put("gmctrl.perm.activate_monster",     "Kích hoạt Trình tạo quái");
+    L.put("gmctrl.show_non_impl",             "Hiển thị Tính năng Chưa triển khai");
+    // Useless features
+    L.put("gmctrl.perm.move_to_npc",          "Di chuyển đến NPC (vô dụng)");
+    L.put("gmctrl.perm.move_to_map",          "Di chuyển đến Bản đồ (vô dụng)");
+    L.put("gmctrl.perm.increase_speed",       "Tăng Tốc độ (vô dụng)");
+    L.put("gmctrl.perm.follow_player",        "Đi theo Người chơi (vô dụng)");
+    L.put("gmctrl.perm.delete_monster",       "Xóa Quái vật (vô dụng)");
+    L.put("gmctrl.perm.morph_monster",        "Biến thành Quái vật (vô dụng)");
+    L.put("gmctrl.perm.gm_admin",             "Quản trị GM (vô dụng)");
+    L.put("gmctrl.perm.set_double_exp",       "Đặt gấp đôi EXP (vô dụng)");
+    L.put("gmctrl.perm.set_ip_limit",         "Đặt giới hạn kết nối cùng IP (vô dụng)");
+    L.put("gmctrl.perm.forbid_trade_all",     "Cấm giao dịch tất cả (vô dụng)");
+    L.put("gmctrl.perm.forbid_auction_all",   "Cấm đấu giá tất cả (vô dụng)");
+    L.put("gmctrl.perm.forbid_mail_all",      "Cấm thư trong game tất cả (vô dụng)");
+    L.put("gmctrl.perm.forbid_faction_all",   "Cấm hoạt động Bang hội (vô dụng)");
+    L.put("gmctrl.perm.set_double_money",     "Đặt gấp đôi tiền rơi (vô dụng)");
+    L.put("gmctrl.perm.set_double_item",      "Đặt gấp đôi đồ rơi (vô dụng)");
+    L.put("gmctrl.perm.set_double_sp",        "Đặt gấp đôi SP (vô dụng)");
+    L.put("gmctrl.perm.forbid_point_card",    "Cấm bán thẻ điểm (vô dụng)");
+    L.put("gmctrl.perm.edit_char_data",       "Sửa dữ liệu nhân vật (vô dụng)");
+    L.put("gmctrl.perm.check_server_status",  "Kiểm tra trạng thái server (vô dụng)");
+    L.put("gmctrl.perm.check_log",            "Kiểm tra nhật ký (vô dụng)");
+    L.put("gmctrl.perm.reboot_gameserver",    "Khởi động lại gameserver cưỡng chế (vô dụng)");
+    L.put("gmctrl.perm.reboot_db",            "Khởi động lại database cưỡng chế (vô dụng)");
+    L.put("gmctrl.perm.find_char_id",         "Tìm ID từ tên nhân vật (vô dụng)");
+    L.put("gmctrl.perm.view_char_data",       "Xem dữ liệu nhân vật (vô dụng)");
+    L.put("gmctrl.perm.char_online_status",   "Trạng thái online nhân vật (vô dụng)");
+    L.put("gmctrl.perm.send_item_mail",       "Gửi thư kèm vật phẩm (vô dụng)");
+    L.put("gmctrl.perm.see_ban_history",      "Xem lịch sử cấm (vô dụng)");
+    L.put("gmctrl.perm.see_cubi_payments",    "Xem giao dịch cubigold (vô dụng)");
+    L.put("gmctrl.perm.see_cubi_amount",      "Xem số lượng cubigold (vô dụng)");
+    L.put("gmctrl.perm.add_cubigold",         "Thêm cubigold (vô dụng)");
+    L.put("gmctrl.perm.view_by_username",     "Xem theo tên đăng nhập (vô dụng)");
+    L.put("gmctrl.perm.edit_username",        "Sửa tên đăng nhập (vô dụng)");
+    L.put("gmctrl.perm.remove_ban",           "Gỡ cấm (vô dụng)");
+    L.put("gmctrl.perm.get_role_list",        "Lấy danh sách nhân vật (vô dụng)");
+    L.put("gmctrl.perm.change_password",      "Đổi mật khẩu (vô dụng)");
+
+    // ╔══════════════════════════════════════════════════════════════╗
+    // ║           ADDONS - LIST GM ACCOUNTS (DS TK GM)             ║
+    // ╚══════════════════════════════════════════════════════════════╝
+    L.put("gmlist.title",             "Tài khoản GM");
+    L.put("gmlist.subtitle",          "Danh sách tài khoản GameMaster");
+    L.put("gmlist.id",                "ID");
+    L.put("gmlist.name",              "Tên");
+    L.put("gmlist.creation_time",     "Ngày tạo");
+    L.put("gmlist.error",             "Lỗi: %s");
+    L.put("gmlist.error_closing",     "Lỗi khi đóng: %s");
+
+    // ╔══════════════════════════════════════════════════════════════╗
+    // ║              ADDONS - IP LOG (Nhật ký IP)                  ║
+    // ╚══════════════════════════════════════════════════════════════╝
+    L.put("iplog.title",              "Nhật ký IP");
+    L.put("iplog.subtitle",           "Lịch sử đăng nhập Admin Panel");
+    L.put("iplog.time",               "Thời gian");
+    L.put("iplog.ip",                 "IP");
+
+    // ╔══════════════════════════════════════════════════════════════╗
+    // ║          ADDONS - SPOUSE MANAGER (Quản lý Hôn nhân)        ║
+    // ╚══════════════════════════════════════════════════════════════╝
+    L.put("spouse.title",             "QUẢN LÝ HÔN NHÂN");
+    L.put("spouse.subtitle",          "Quản lý hôn nhân nhân vật");
+    L.put("spouse.marry",             "Kết hôn");
+    L.put("spouse.groom",             "Chú rể");
+    L.put("spouse.bride",             "Cô dâu");
+    L.put("spouse.marry_btn",         "Kết hôn");
+    L.put("spouse.divorce",           "Ly hôn");
+    L.put("spouse.char_name",         "Tên nhân vật");
+    L.put("spouse.divorce_btn",       "Ly hôn");
+
+    // ╔══════════════════════════════════════════════════════════════╗
+    // ║              ADDONS - SEND MAIL (Gửi Thư)                  ║
+    // ╚══════════════════════════════════════════════════════════════╝
+    L.put("sendmail.title",           "GỬI THƯ");
+    L.put("sendmail.subtitle",        "Gửi thư và vật phẩm cho người chơi");
+    L.put("sendmail.manual",          "Hướng dẫn");
+    L.put("sendmail.send_btn",        "Gửi Thư");
+    L.put("sendmail.back",            "Quay lại");
+    L.put("sendmail.title2",          "GỬI THƯ 2");
+    L.put("sendmail.subtitle2",       "Gửi thư bằng cách nhập thông tin vật phẩm thủ công");
+    L.put("sendmail.title3",          "GỬI THƯ 3");
+
+    // ╔══════════════════════════════════════════════════════════════╗
+    // ║              ADDONS - GS FIX (Sửa GS)                      ║
+    // ╚══════════════════════════════════════════════════════════════╝
+    L.put("gsfix.title",              "Chạy gsfix.sh");
+    L.put("gsfix.subtitle",           "GS Fix Script");
+    L.put("gsfix.run_btn",            "Chạy Script");
+    L.put("gsfix.error_no_path",      "Lỗi: Đường dẫn GS trống. Vui lòng cung cấp đường dẫn!");
+
+    // ╔══════════════════════════════════════════════════════════════╗
+    // ║            ADDONS - PANEL CHAT (Chat Panel)                ║
+    // ╚══════════════════════════════════════════════════════════════╝
+    L.put("chat.title",               "Panel Chat");
+    L.put("chat.subtitle",            "Hệ thống chat thời gian thực");
+    L.put("chat.set_name",            "Đặt Tên Của Bạn");
+    L.put("chat.set_name_btn",        "Đặt Tên");
+    L.put("chat.send_btn",            "Gửi");
+    L.put("chat.clear_btn",           "Xóa Chat");
+    L.put("chat.edit_name_btn",       "Sửa Tên");
+
+    // ╔══════════════════════════════════════════════════════════════╗
+    // ║            ADDONS - CHANGE PASSWORD (Đổi MK)               ║
+    // ╚══════════════════════════════════════════════════════════════╝
+    L.put("changepw.title",           "ĐỔI MẬT KHẨU CƯỠNG CHẾ");
+    L.put("changepw.subtitle",        "Đổi mật khẩu tài khoản người chơi");
+
+    // ╔══════════════════════════════════════════════════════════════╗
+    // ║            ADDONS - GUILD ICON (Icon Bang)                 ║
+    // ╚══════════════════════════════════════════════════════════════╝
+    L.put("guildicon.login_btn",      "Đăng nhập");
+    L.put("guildicon.logout_btn",     "Đăng xuất");
+
+    // ╔══════════════════════════════════════════════════════════════╗
+    // ║            ADDONS - LIVE CHAT (Chat trực tuyến)            ║
+    // ╚══════════════════════════════════════════════════════════════╝
+    L.put("livechat.title",           "LIVE CHAT");
+    L.put("livechat.subtitle",        "Hệ thống chat trực tuyến");
+    L.put("livechat.login_required",  "Đăng nhập để sử dụng Live Chat...");
+    L.put("livechat.send_btn",        "Gửi");
+    L.put("livechat.clear_btn",       "Xóa Chat");
+    L.put("livechat.cleared",         "Đã xóa file nhật ký chat");
+    L.put("livechat.clear_failed",    "Xóa file nhật ký chat thất bại");
+    L.put("livechat.sent",            "Đã gửi tin nhắn");
+    L.put("livechat.send_failed",     "Gửi tin nhắn thất bại");
+    L.put("livechat.append_failed",   "Ghi vào file nhật ký thất bại");
+
+    // ╔══════════════════════════════════════════════════════════════╗
+    // ║          ADDONS - GUILD ICON (Icon Bang hội)              ║
+    // ╚══════════════════════════════════════════════════════════════╝
+    L.put("guildicon.title",          "Quản lý Icon Bang Hội");
+    L.put("guildicon.subtitle",       "Tải lên và quản lý icon bang hội");
+    L.put("guildicon.root_access",    "Root Access: ");
+    L.put("guildicon.download_btn",   "Tải xuống");
+    L.put("guildicon.faction_leader", "Bang hội (Bang chủ):");
+    L.put("guildicon.current_icon",   "Icon Hiện tại:");
+    L.put("guildicon.reset_icon",     "Xóa Icon:");
+    L.put("guildicon.reset_hint",     "Tích để xóa icon hiện tại");
+    L.put("guildicon.commit_icon",    "Tải lên Icon:");
+    L.put("guildicon.submit_btn",     "Xác nhận");
+    L.put("guildicon.icon_removed",   "Đã xóa Icon");
+    L.put("guildicon.remove_failed",  "Xóa Icon thất bại!");
+    L.put("guildicon.icon_committed", "Đã cập nhật Icon");
+    L.put("guildicon.required_gif",   "Yêu cầu ảnh GIF 16x16!");
+    L.put("guildicon.no_permission",  "Không có quyền thực hiện!");
+    L.put("guildicon.faction_not_found","Không tìm thấy Bang hội!");
+    L.put("guildicon.no_factions",    "Không tìm thấy Bang hội nào");
+    L.put("guildicon.error_get_dir",  "Lỗi khi đọc thư mục icons!");
+    L.put("guildicon.error_parse",    "Lỗi phân tích dữ liệu form!");
+    L.put("guildicon.debug_log",      "Nhật ký Gỡ lỗi");
+
+    // ╔══════════════════════════════════════════════════════════════╗
+    // ║            ADDONS - VERSION INFO (Thông tin phiên bản)     ║
+    // ╚══════════════════════════════════════════════════════════════╝
+    L.put("version.title",            "Thông tin Phiên bản");
+    L.put("version.text",             "Remix Version 4<br>Phiên bản này bởi Crucifix, Creez, Krona và corzca dựa trên pwAdmin của DaMadBoy, Sora1984, Bola.");
+
+    // ╔══════════════════════════════════════════════════════════════╗
+    // ║            ADDONS - SKILL HEXGEN                           ║
+    // ╚══════════════════════════════════════════════════════════════╝
+    L.put("skillhex.title",           "Skill HexGen");
+    L.put("skillhex.allclass",        "Kỹ năng Chung");
+    L.put("skillhex.unavailable",     "chưa có");
+    L.put("skillhex.submit_btn",      "Tạo XML");
+    L.put("skillhex.basic",           "Cơ bản");
+    L.put("skillhex.short_edge",      "Đoản kiếm");
+    L.put("skillhex.polearm",         "Trường thương");
+    L.put("skillhex.blunt",           "Đốn độn");
+    L.put("skillhex.fist",            "Quyền sáo");
+    L.put("skillhex.all",             "Tất cả");
+    L.put("skillhex.misc_passive",    "Khác / Bị động");
+    L.put("skillhex.fire",            "Hỏa");
+    L.put("skillhex.water",           "Thủy");
+    L.put("skillhex.earth",           "Thổ");
+    L.put("skillhex.human_form",      "Hình người");
+    L.put("skillhex.tiger_form",      "Hổ");
+    L.put("skillhex.bless",           "Phù phép");
+    L.put("skillhex.wood",            "Mộc");
+    L.put("skillhex.fox_form",        "Cáo");
+    L.put("skillhex.pet",             "Pet");
+    L.put("skillhex.gen_skill_xml",   "Tạo XML Kỹ năng");
+
+    }
+
+    // ╔══════════════════════════════════════════════════════════════╗
     // ║                   HÀM TIỆN ÍCH                              ║
     // ╚══════════════════════════════════════════════════════════════╝
 
@@ -375,7 +615,7 @@
      * Lấy chuỗi tiếng Việt từ key. Nếu key không tồn tại, trả về key gốc
      * để tránh lỗi NullPointerException và dễ phát hiện key thiếu.
      *
-     * Dùng: <%= T("key") %> hoặc <%= Tf("key", arg1, arg2) %>
+     * Cách dùng trong JSP: gọi T("key") hoặc Tf("key", arg1, arg2).
      */
     String T(String key) {
         String val = L.get(key);
@@ -384,7 +624,7 @@
 
     /**
      * Lấy chuỗi có định dạng (String.format)
-     * Dùng: <%= Tf("key", arg1) %>
+     * Cách dùng trong JSP: gọi Tf("key", arg1).
      */
     String Tf(String key, Object... args) {
         String val = L.get(key);

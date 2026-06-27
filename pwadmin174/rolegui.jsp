@@ -9,117 +9,70 @@
         return text.replace("&", "&amp;").replace("<", "&lt;").replace(">", "&gt;");
     }
 %>
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Display Role Data</title>
-    <style>
-        /* Styles remain unchanged */
-        body {
-            background-color: #2c2c2c;
-            color: white;
-            font-family: Arial, sans-serif;
-        }
-        table {
-            width: 80%;
-            margin: auto;
-            border-collapse: collapse;
-            background-color: #333;
-            border: 1px solid #555;
-            margin-bottom: 20px;
-        }
-        th, td {
-            border: 1px solid #555;
-            padding: 10px;
-            text-align: left;
-        }
-        th {
-            background-color: #444;
-            font-weight: bold;
-        }
-        td input[type="text"],
-        td textarea {
-            width: 100%;
-            padding: 5px;
-            background-color: #555;
-            color: white;
-            border: 1px solid #777;
-            border-radius: 3px;
-        }
-        td textarea {
-            resize: vertical;
-        }
-        .icon-grid {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 2px;
-            justify-content: center;
-            margin: 10px auto;
-            width: 95%;
-        }
-        .icon-grid img {
-            width: 38px;
-            height: 38px;
-            cursor: pointer;
-            border: 2px solid transparent;
-        }
-        .icon-grid img:hover {
-            border: 2px solid #f88c8c;
-        }
-        .item-details {
-            width: 50%;
-            margin: auto;
-            background-color: #444;
-            padding: 20px;
-            border-radius: 5px;
-            display: none;
-        }
-        .item-details div {
-            margin-top: 10px;
-        }
-        .item-area{
-            display: flex;
-            flex-wrap: wrap;
-            gap: 20px;
-        }
-        .inv-area{ /*scrolling inv*/
-            overflow-y: auto;
-            margin-top: 45px;
-            height: 455px;
-        }
-        .bg-inv {
-            position: relative;
-            width: 317px;
-            height: 545px;
-            left: 12%;
-            background-image: url('include/inv.png');
-            background-size: cover;
-            background-position: center;
-            background-repeat: no-repeat;
-        }
-        .message{
-            position: absolute;
-            top: 0%;
-            left: 12%;
-            align-items: center;
-            color: #00ee00;
-        }
-        /* Style for the debug output box */
-        .debug-output {
-            background-color: #1e1e1e;
-            border: 1px solid #777;
-            padding: 15px;
-            margin-top: 25px;
-            font-family: monospace;
-            font-size: 0.9em;
-            line-height: 1.4;
-            white-space: pre-wrap; /* Allows wrapping long lines */
-            word-wrap: break-word; /* Breaks long words/lines */
-            color: #ccc;
-            max-height: 400px; /* Limit height */
-            overflow-y: auto; /* Add scroll if needed */
-        }
-    </style>
+<style>
+    /* Minimal custom styles for inventory layout and position colors */
+    .icon-grid {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 2px;
+        justify-content: center;
+        margin: 10px auto;
+        width: 95%;
+    }
+    .icon-grid img {
+        width: 38px;
+        height: 38px;
+        cursor: pointer;
+        border: 2px solid transparent;
+    }
+    .icon-grid img:hover {
+        border-color: var(--phx-primary, #f88c8c);
+    }
+    .item-details {
+        width: 50%;
+        margin: auto;
+        background: var(--phx-surface, #444);
+        padding: 20px;
+        border-radius: var(--phx-radius, 5px);
+        display: none;
+    }
+    .item-details div {
+        margin-top: 10px;
+    }
+    .item-area {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 20px;
+    }
+    .inv-area {
+        overflow-y: auto;
+        margin-top: 45px;
+        height: 455px;
+    }
+    .bg-inv {
+        position: relative;
+        width: 317px;
+        height: 545px;
+        left: 12%;
+        background-image: url('include/inv.png');
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+    }
+    .message {
+        position: absolute;
+        top: 0%;
+        left: 12%;
+        align-items: center;
+        color: #00ee00;
+    }
+    .pos0 { border-color: transparent; }
+    .pos1 { border-color: var(--phx-warning, #ff8800); }
+    .pos2 { border-color: var(--phx-success, #00cc00); }
+    .pos3 { border-color: var(--phx-info, #0088ff); }
+    .pos4 { border-color: var(--phx-danger, #ff4444); }
+    .pos5 { border-color: var(--phx-purple, #aa44ff); }
+</style>
     <script>
         function showItemDetails(itemName, detailsHtml) {
             const detailsBlock = document.getElementById('item-details');
@@ -131,8 +84,6 @@
             detailsBlock.style.display = 'block';
         }
     </script>
-</head>
-<body>
     <%
         // --- START SCRIPTLET ---
 
@@ -182,11 +133,11 @@
         // Store realPath outside the debug block as it's needed later
         String realPath = application.getRealPath("/");
     %>
-    <form name="content" action="index.jsp?page=rolegui" method="post" style="margin: 0px;">
-    <div style="text-align: right;"><input name="ident" type="text" value="<% out.print(id); %>"></input> <select name="type" ><option value="id">by ID</option></select> <button class="button is-info is-small">View</button></div>
+    <form name="content" action="index.jsp?page=rolegui" method="post" class="phx-form">
+    <div class="phx-form-group" style="text-align: right;"><input name="ident" type="text" class="phx-input" value="<% out.print(id); %>"> <select name="type" class="phx-input"><option value="id">by ID</option></select> <button class="phx-btn phx-btn-primary">View</button></div>
     </form>
     <br>
-    <h1 class="title has-text-centered">Character Data</h1>
+    <div class="phx-page-header"><i class="fas fa-dragon"></i> Character Data</div>
     <br>
     <%
         try {
@@ -365,11 +316,11 @@
                             Element baseElement = (Element) baseNode;
                             NodeList variableList = baseElement.getElementsByTagName("variable");
                 %>
-                <form name="input-gui" action="index.jsp?page=rolegui&ident=<%out.print(id);%>&process=save" method="post">
+                <form name="input-gui" class="phx-form" action="index.jsp?page=rolegui&ident=<%out.print(id);%>&process=save" method="post">
                                 <h2 style="text-align: center;">Base Variables</h2>
-                                <table>
+                                <div class="phx-table-wrap"><table class="phx-table">
                                     <thead>
-                                        <tr><th><h1 style="text-align: center;">Variable Name</h1></th><th><h1 style="text-align: center;">Value</h1></th></tr>
+                                        <tr><th>Variable Name</th><th>Value</th></tr>
                                     </thead>
                                     <tbody>
                                         <%
@@ -385,9 +336,9 @@
                                             <td><%= name %></td>
                                             <td>
                                                 <% if (isLongText) { %>
-                                                    <textarea id="<%= name + 1 %>" name="<%= name %>" rows="5"><%= value %></textarea>
+                                                    <textarea class="phx-input" id="<%= name + 1 %>" name="<%= name %>" rows="5"><%= value %></textarea>
                                                 <% } else { %>
-                                                    <input id="<%= name + 1 %>"type="text" name="<%= name %>" value="<%= value %>">
+                                                    <input class="phx-input" id="<%= name + 1 %>" type="text" name="<%= name %>" value="<%= value %>">
                                                 <% } %>
                                             </td>
                                         </tr>
@@ -396,7 +347,7 @@
                                             }
                                         %>
                                     </tbody>
-                                </table>
+                                </table></div>
                 <%
                         }
                     } // End <base> processing
@@ -410,9 +361,9 @@
                             NodeList variableList = statusElement.getElementsByTagName("variable");
                 %>
                                 <h2 style="text-align: center;">Status Variables</h2>
-                                <table>
+                                <div class="phx-table-wrap"><table class="phx-table">
                                     <thead>
-                                        <tr><th><h1 style="text-align: center;">Variable Name</h1></th><th><h1 style="text-align: center;">Value</h1></th></tr>
+                                        <tr><th>Variable Name</th><th>Value</th></tr>
                                     </thead>
                                     <tbody>
                                         <%
@@ -428,9 +379,9 @@
                                             <td><%= name %></td>
                                             <td>
                                                 <% if (isLongText) { %>
-                                                    <textarea id="<%= name + 2 %>" name="<%= name %>" rows="5"><%= value %></textarea>
+                                                    <textarea class="phx-input" id="<%= name + 2 %>" name="<%= name %>" rows="5"><%= value %></textarea>
                                                 <% } else { %>
-                                                    <input id="<%= name + 2 %>" type="text" name="<%= name %>" value="<%= value %>">
+                                                    <input class="phx-input" id="<%= name + 2 %>" type="text" name="<%= name %>" value="<%= value %>">
                                                 <% } %>
                                             </td>
                                         </tr>
@@ -439,7 +390,7 @@
                                             }
                                         %>
                                     </tbody>
-                                </table>
+                                </table></div>
                 <%
                         }
                     } // End <status> processing
@@ -453,9 +404,9 @@
                             NodeList variableList = taskElement.getElementsByTagName("variable");
                         %>
                                 <h2 style="text-align: center;">Task Variables</h2>
-                                <table>
+                                <div class="phx-table-wrap"><table class="phx-table">
                                     <thead>
-                                        <tr><th><h1 style="text-align: center;">Variable Name</h1></th><th><h1 style="text-align: center;">Value</h1></th></tr>
+                                        <tr><th>Variable Name</th><th>Value</th></tr>
                                     </thead>
                                     <tbody>
                                         <%
@@ -471,9 +422,9 @@
                                             <td><%= name %></td>
                                             <td>
                                                 <% if (isLongText) { %>
-                                                    <textarea id="<%= name + 3 %>" name="<%= name %>" rows="5"><%= value %></textarea>
+                                                    <textarea class="phx-input" id="<%= name + 3 %>" name="<%= name %>" rows="5"><%= value %></textarea>
                                                 <% } else { %>
-                                                    <input id="<%= name + 3 %>" type="text" name="<%= name %>" value="<%= value %>">
+                                                    <input class="phx-input" id="<%= name + 3 %>" type="text" name="<%= name %>" value="<%= value %>">
                                                 <% } %>
                                             </td>
                                         </tr>
@@ -482,7 +433,7 @@
                                             }
                                         %>
                                     </tbody>
-                                </table>
+                                </table></div>
                         <%
                         }
                     } // End <task> processing
@@ -510,9 +461,9 @@
                                  if (debug) debugOutputBuilder.append("[DEBUG] Processing direct variables under <pocket> ("+pocketVarElements.size()+")...<br>"); // Added
                         %>
                                         <h2 style="text-align: center;">Pocket Variables</h2>
-                                        <table>
+                                        <div class="phx-table-wrap"><table class="phx-table">
                                             <thead>
-                                                <tr><th><h1 style="text-align: center;">Variable Name</h1></th><th><h1 style="text-align: center;">Value</h1></th></tr>
+                                                <tr><th>Variable Name</th><th>Value</th></tr>
                                             </thead>
                                             <tbody>
                                                 <%
@@ -525,9 +476,9 @@
                                                     <td><%= name %></td>
                                                     <td>
                                                         <% if (isLongText) { %>
-                                                            <textarea id="<%= name + 4 %>" name="<%= name %>" rows="5"><%= value %></textarea>
+                                                            <textarea class="phx-input" id="<%= name + 4 %>" name="<%= name %>" rows="5"><%= value %></textarea>
                                                         <% } else { %>
-                                                            <input id="<%= name + 4 %>" type="text" name="<%= name %>" value="<%= value %>">
+                                                            <input class="phx-input" id="<%= name + 4 %>" type="text" name="<%= name %>" value="<%= value %>">
                                                         <% } %>
                                                     </td>
                                                 </tr>
@@ -535,7 +486,7 @@
                                                     }
                                                 %>
                                             </tbody>
-                                        </table>
+                                        </table></div>
                         <%
                              } // End direct pocket variables display
 
@@ -562,9 +513,9 @@
                                           if (debug) debugOutputBuilder.append("[DEBUG] Processing direct variables under <storehouse> ("+storeVarElements.size()+")...<br>"); // Added
                             %>
                                                 <h2 style="text-align: center;">Storehouse Variables</h2>
-                                                <table>
+                                                <div class="phx-table-wrap"><table class="phx-table">
                                                     <thead>
-                                                        <tr><th><h1 style="text-align: center;">Variable Name</h1></th><th><h1 style="text-align: center;">Value</h1></th></tr>
+                                                        <tr><th>Variable Name</th><th>Value</th></tr>
                                                     </thead>
                                                     <tbody>
                                                     <%
@@ -577,9 +528,9 @@
                                                             <td><%= name %></td>
                                                             <td>
                                                                 <% if (isLongText) { %>
-                                                                    <textarea id="<%= name + 6 %>" name="<%= name %>" rows="5"><%= value %></textarea>
+                                                                    <textarea class="phx-input" id="<%= name + 6 %>" name="<%= name %>" rows="5"><%= value %></textarea>
                                                                 <% } else { %>
-                                                                    <input id="<%= name + 6 %>" type="text" name="<%= name %>" value="<%= value %>">
+                                                                    <input class="phx-input" id="<%= name + 6 %>" type="text" name="<%= name %>" value="<%= value %>">
                                                                 <% } %>
                                                             </td>
                                                         </tr>
@@ -587,7 +538,7 @@
                                                         }
                                                     %>
                                                     </tbody>
-                                                </table>
+                                                </table></div>
                             <%
                                      } // End direct storehouse variables
                                  } // End if storeNode is element
@@ -597,6 +548,7 @@
                              // Display Items (Pocket/Equip/Storehouse) - Needs refactoring based on actual XML structure
                              // Assuming <inv> = Equipment, <pocket><items> = Pocket, <storehouse><items/material/...> = Store
                             %>
+                                <div class="phx-card">
                                 <div class="item-area">
                                     <div class="bg-inv">
                                         <div class="inv-area">
@@ -631,9 +583,9 @@
                                                     itemId = value;
                                                     if (debug) debugOutputBuilder.append("[DEBUG] Processing <inv> item ID: ").append(itemId).append("<br>"); // Added
                                                 }
-                                                detailsHtml.append("<table style='width: 100%; margin-bottom: 10px;'>"); // Tabel dimulai
-                                                detailsHtml.append("<tr><td style='width: 30%; padding-right: 10px;'><label>").append(escapeHtml(name)).append("</label></td>");
-                                                detailsHtml.append("<td><input id='").append(escapeHtml(name)).append(5).append("' name='").append(escapeHtml(name)).append(5).append("'type='text' value='").append(escapeHtml(value)).append("'style='width: 100%;'></td></tr>");
+                                                detailsHtml.append("<table class='phx-table' style='width: 100%; margin-bottom: 10px;'>");
+                                                detailsHtml.append("<tr><td style='width: 30%; padding-right: 10px;'><label class='phx-label'>").append(escapeHtml(name)).append("</label></td>");
+                                                detailsHtml.append("<td><input class='phx-input' id='").append(escapeHtml(name)).append(5).append("' name='").append(escapeHtml(name)).append(5).append("' type='text' value='").append(escapeHtml(value)).append("'></td></tr>");
                                                 detailsHtml.append("</table>");
                                             }
                                         }
@@ -732,9 +684,9 @@
                                                 String varName = variableElement.getAttribute("name");
                                                 String varValue = variableElement.getTextContent();
 
-                                                detailsHtml.append("<table style='width: 100%; margin-bottom: 10px;'>");
-                                                detailsHtml.append("<tr><td style='width: 30%; padding-right: 10px;'><label>").append(escapeHtml(varName)).append("</label></td>");
-                                                detailsHtml.append("<td><input id='").append(escapeHtml(varName)).append(4).append("' name='").append(escapeHtml(varName)).append(4).append("' type='text' value='").append(escapeHtml(varValue)).append("'style='width: 100%;'></td></tr>");
+                                                detailsHtml.append("<table class='phx-table' style='width: 100%; margin-bottom: 10px;'>");
+                                                detailsHtml.append("<tr><td style='width: 30%; padding-right: 10px;'><label class='phx-label'>").append(escapeHtml(varName)).append("</label></td>");
+                                                detailsHtml.append("<td><input class='phx-input' id='").append(escapeHtml(varName)).append(4).append("' name='").append(escapeHtml(varName)).append(4).append("' type='text' value='").append(escapeHtml(varValue)).append("'></td></tr>");
                                                 detailsHtml.append("</table>");
 
                                                 if (varName.equals("id")) {
@@ -851,9 +803,9 @@
                                                         }
 
                                                         // Append variable name and value in HTML table format
-                                                        detailsHtml.append("<table style='width: 100%; margin-bottom: 10px;'>");
-                                                        detailsHtml.append("<tr><td style='width: 30%; padding-right: 10px;'><label>").append(escapeHtml(name)).append("</label></td>");
-                                                        detailsHtml.append("<td><input id='").append(escapeHtml(name)).append(6).append("' name='").append(escapeHtml(name)).append(6).append("' type='text' value='").append(escapeHtml(value)).append("' style='width: 100%;'></td></tr>");
+                                                        detailsHtml.append("<table class='phx-table' style='width: 100%; margin-bottom: 10px;'>");
+                                                        detailsHtml.append("<tr><td style='width: 30%; padding-right: 10px;'><label class='phx-label'>").append(escapeHtml(name)).append("</label></td>");
+                                                        detailsHtml.append("<td><input class='phx-input' id='").append(escapeHtml(name)).append(6).append("' name='").append(escapeHtml(name)).append(6).append("' type='text' value='").append(escapeHtml(value)).append("'></td></tr>");
                                                         detailsHtml.append("</table>");
                                                     }
                                                 }
@@ -1232,27 +1184,24 @@
         }
         // --- END SCRIPTLET ---
     %>
-    <div id="item-details" class="item-details"></div>
+    <div id="item-details" class="item-details phx-card"></div>
 
     <%-- Display form only if data was loaded --%>
     <% if (doc != null) { %>
-        <center><br><br><button class="button is-info is-small">Save</button></center>
+        <div class="has-text-centered" style="margin: 20px 0;"><br><br><button class="phx-btn phx-btn-primary">Save</button></div>
     </form> <%-- Closing the form started before the tables --%>
     <% } %>
 
     <%-- Display error messages accumulated --%>
     <% if (!error.isEmpty()) { %>
-        <div style="color: #ee0000; text-align: center; margin-top: 15px;"><%= error %></div>
+        <div class="phx-notify phx-notify-error"><%= error %></div>
     <% } %>
      <% if (!message.isEmpty()) { %>
-        <div style="text-align: center; margin-top: 15px;"><%= message %></div>
+        <div class="has-text-centered"><%= message %></div>
      <% } %>
 
 
     <%-- The debug output box (Only display if debug is enabled) --%>
     <% if (debug) { %>
-        <div class="box mt-5 debug-output"><%= debugOutputBuilder.toString() %></div>
+        <div class="phx-code"><%= debugOutputBuilder.toString() %></div>
     <% } %>
-
-</body>
-</html>

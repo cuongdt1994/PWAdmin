@@ -1,7 +1,9 @@
+<%@page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@page import="java.util.*"%>
 <%@page import="protocol.*"%>
 <%@page import="com.goldhuman.Common.Octets"%>
 <%@include file="../../WEB-INF/.pwadminconf.jsp"%>
+<%@include file="../../WEB-INF/lang_vi.jsp"%>
 
 <%!
 	byte[] hextoByteArray(String x)
@@ -40,12 +42,14 @@
 %>
 
 <%
-	String message = "<br>";
+	String message = "";
+	String msgType = "info";
 	boolean allowed = false;
 
 	if(request.getSession().getAttribute("ssid") == null)
 	{
-		message = "<font color=\"#ee0000\"><b>Login to use Send Mail...</b></font>";
+		message = "Login to use Send Mail...";
+		msgType = "error";
 	}
 	else
 	{
@@ -82,186 +86,176 @@
 
 			if(protocol.DeliveryDB.SysSendMail(roleid, title, content, gri, coins))
 			{
-				message = "<font color=\"#00cc00\"><b>Mail Sent</b></font>";
+				message = "Mail Sent";
+				msgType = "success";
 			}
 			else
 			{
-				message = "<font color=\"#ee0000\"><b>Sending Mail Failed</b></font>";
+				message = "Sending Mail Failed";
+				msgType = "error";
 			}
 		}
 		else
 		{
-			message = "<font color=\"#ee0000\"><b>Enter Valid Values</b></font>";
+			message = "Enter Valid Values";
+			msgType = "error";
 		}
 	}
 %>
 
-<html>
-
+<!DOCTYPE html>
+<html lang="vi">
 <head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<link rel="shortcut icon" href="../../include/fav.ico">
-	<link rel="stylesheet" type="text/css" href="../../include/style.css">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+	<link rel="stylesheet" type="text/css" href="../../include/phoenix.css">
 </head>
 
-<body>
+<body style="background:transparent; padding:16px;">
 
-<form action="manual.jsp?process=mail" method="post">
+<div class="phx-page-header">
+	<h3><i class="fas fa-envelope"></i> Send Mail</h3>
+	<div class="phx-page-header-actions">
+		<a href="./index.jsp" class="phx-btn phx-btn-ghost"><i class="fas fa-arrow-left"></i> <%= T("sendmail.back") %></a>
+	</div>
+</div>
 
-<table align="center" width="480" cellpadding="2" cellspacing="0" style="border: 1px solid #cccccc;">
-	<tr>
-		<th height="1" colspan="2" style="padding: 5;">
-			<b>SEND MAIL</b>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp(<a href="./index.jsp">Back</a>)
-		</th>
-	</tr>
-	<tr bgcolor="#f0f0f0">
-		<td colspan="2" align="center" height="1">
-			<% out.print(message); %>
-		</td>
-	</tr>
-	<tr>
-		<td height="1">
-			Role ID:
-		</td>
-		<td height="1">
-			<input type="text" name="roleid" style="width: 100%; text-align: left;"></input>
-		</td>
-	</tr>
-	<tr>
-		<td height="1">
-			Title:
-		</td>
-		<td height="1">
-			<input type="text" name="title" style="width: 100%; text-align: left;"></input>
-		</td>
-	</tr>
-	<tr>
-		<td height="1" valign="top">
-			Content:
-		</td>
-		<td height="1">
-			<textarea name="content" rows="5" style="width: 100%; text-align: left;"></textarea>
-		</td>
-	</tr>
-	<tr>
-		<td height="1">
-			Coins:
-		</td>
-		<td height="1">
-			<input type="text" name="coins" value="0" style="width: 100%; text-align: left;"></input>
-		</td>
-	</tr>
-<tr><td><br></td></tr>
-	<tr>
-		<td height="1">
-			Item ID:
-		</td>
-		<td height="1">
-			<input type="text" name="itemid" value="0" style="width: 100%; text-align: left;"></input>
-		</td>
-	</tr>
-	<tr>
-		<td height="1">
-			Item Hex:
-		</td>
-		<td height="1">
-			<input type="text" name="itemhex" value="" style="width: 100%; text-align: left;"></input>
-		</td>
-	</tr>	<tr>
-		<td height="1">
-			Item Mask:
-		</td>
-		<td height="1">
-			<input type="text" name="itemmask" value="0" style="width: 100%; text-align: left;"></input>
-		</td>
-	</tr>	<tr>
-		<td height="1">
-			Item Proctype:
-		</td>
-		<td height="1">
-			<input type="text" name="itemproc" value="0" style="width: 100%; text-align: left;"></input>
-		</td>
-	</tr>	<tr>
-		<td height="1">
-			Item Stack:
-		</td>
-		<td height="1">
-			<input type="text" name="itemstacked" value="0" style="width: 100%; text-align: left;"></input>
-		</td>
-	</tr>	<tr>
-		<td height="1">
-			Item Max Stack:
-		</td>
-		<td height="1">
-			<input type="text" name="itemstackmax" value="0" style="width: 100%; text-align: left;"></input>
-		</td>
-	</tr>	<tr>
-		<td height="1">
-			Item Expire Date:
-		</td>
-		<td height="1">
-			<input type="text" name="itemexpire" value="0" style="width: 100%; text-align: left;"></input>
-		</td>
-	</tr>
-	<tr bgcolor="#f0f0f0">
-		<td colspan="2" align="center" height="1">
-			<input type="image" src="../../include/btn_submit.jpg" style="border: 0;"></input>
-		</td>
-	</tr>
-</table>
+<div class="phx-card">
+	<div class="phx-card-body">
+		<form action="manual.jsp?process=mail" method="post">
 
-</form>
+			<% if(!"".equals(message)) { %>
+			<div class="phx-notify phx-notify-<%= msgType %>">
+				<i class="fas <%= msgType.equals("success") ? "fa-check-circle" : "fa-exclamation-circle" %>"></i>
+				<%= message %>
+			</div>
+			<% } %>
 
- <center>
- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~<br>
- ITEM MASK:<br>
- <br>
- 0 = Not To Be Equipped<br>
- 1 = Weapon<br>
- 2= Helmet<br>
- 4 = Necklace<br>
- 8 = Robe<br>
- 16 = Chest Armor<br>
- 32 = Belt<br>
- 64 = Leg Armor<br>
- 128 = Foot Armor<br>
- 256 = Arm Armor<br>
- 1536 = Ring<br>
- 1536 = Ring<br>
- 2048 = Ammunition<br>
- 4096 = Flyer Mount<br>
- 8192 = Chest Clothing/Fashion<br>
- 16384 = Leg Clothing/Fashion<br>
- 32768 = Foot Clothing/Fashion<br>
- 65536 = Arm Clothing/Fashion<br>
- 131072 = Hierogram<br>
- 262144 = Heaven Book/Tome<br>
- 524288 = Chat Smiley<br>
- 1048576 = HP Charm<br>
- 2097152 = MP Charm<br>
- <br>
- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~<br>
- ITEM PROCTYPE:<br>
- <br>
- 32791 = SoulBound<br>
- 64 = Bind on equipping<br>
- 55 = (? CHRONO KEY){cannot drop , cannot trade , cannot sell to npc}<br>
- 19 = (? FB Tabs){cannot drop , cannot trade}<br>
- 8 = (? Clothing/Binding Charm){}<br>
- 1 = (? Revival Scroll){}<br>
- <br>
- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~<br>
- Expire Date:<br>
- value is equal to the unix clock time you want the item to expire<br>
- ie...<br>
- to get current unix time type "date +%s"<br>
- (or... (it) is the time in seconds that have elapsed since 01-01-1970 00:00:00 UTC)<br>
- add the amount of time you want the item to last, in seconds, to current unix time<br>
- (ie. 7 days = 604800 seconds, so you would add 604800 to current time)<br>
- <br>
- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~<br>
- <br>
-</center>
+			<div class="phx-form-group">
+				<label class="phx-label">Role ID:</label>
+				<input type="text" name="roleid" class="phx-input">
+			</div>
+
+			<div class="phx-form-group">
+				<label class="phx-label">Title:</label>
+				<input type="text" name="title" class="phx-input">
+			</div>
+
+			<div class="phx-form-group">
+				<label class="phx-label">Content:</label>
+				<textarea name="content" rows="5" class="phx-input"></textarea>
+			</div>
+
+			<div class="phx-form-group">
+				<label class="phx-label">Coins:</label>
+				<input type="text" name="coins" value="0" class="phx-input">
+			</div>
+
+			<hr class="phx-divider">
+
+			<div class="phx-form-group">
+				<label class="phx-label">Item ID:</label>
+				<input type="text" name="itemid" value="0" class="phx-input">
+			</div>
+
+			<div class="phx-form-group">
+				<label class="phx-label">Item Hex:</label>
+				<input type="text" name="itemhex" value="" class="phx-input">
+			</div>
+
+			<div class="phx-form-group">
+				<label class="phx-label">Item Mask:</label>
+				<input type="text" name="itemmask" value="0" class="phx-input">
+			</div>
+
+			<div class="phx-form-group">
+				<label class="phx-label">Item Proctype:</label>
+				<input type="text" name="itemproc" value="0" class="phx-input">
+			</div>
+
+			<div class="phx-form-group">
+				<label class="phx-label">Item Stack:</label>
+				<input type="text" name="itemstacked" value="0" class="phx-input">
+			</div>
+
+			<div class="phx-form-group">
+				<label class="phx-label">Item Max Stack:</label>
+				<input type="text" name="itemstackmax" value="0" class="phx-input">
+			</div>
+
+			<div class="phx-form-group">
+				<label class="phx-label">Item Expire Date:</label>
+				<input type="text" name="itemexpire" value="0" class="phx-input">
+			</div>
+
+			<div style="text-align: center; margin-top: 16px;">
+				<button type="submit" class="phx-btn phx-btn-primary">
+					<i class="fas fa-paper-plane"></i> Send Mail
+				</button>
+			</div>
+
+		</form>
+	</div>
+</div>
+
+<div class="phx-card" style="margin-top: 16px;">
+	<div class="phx-card-header">
+		<i class="fas fa-book"></i> Item Reference
+	</div>
+	<div class="phx-card-body">
+		<div class="phx-code">
+		~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~<br>
+		ITEM MASK:<br>
+		<br>
+		0 = Not To Be Equipped<br>
+		1 = Weapon<br>
+		2 = Helmet<br>
+		4 = Necklace<br>
+		8 = Robe<br>
+		16 = Chest Armor<br>
+		32 = Belt<br>
+		64 = Leg Armor<br>
+		128 = Foot Armor<br>
+		256 = Arm Armor<br>
+		1536 = Ring<br>
+		1536 = Ring<br>
+		2048 = Ammunition<br>
+		4096 = Flyer Mount<br>
+		8192 = Chest Clothing/Fashion<br>
+		16384 = Leg Clothing/Fashion<br>
+		32768 = Foot Clothing/Fashion<br>
+		65536 = Arm Clothing/Fashion<br>
+		131072 = Hierogram<br>
+		262144 = Heaven Book/Tome<br>
+		524288 = Chat Smiley<br>
+		1048576 = HP Charm<br>
+		2097152 = MP Charm<br>
+		<br>
+		~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~<br>
+		ITEM PROCTYPE:<br>
+		<br>
+		32791 = SoulBound<br>
+		64 = Bind on equipping<br>
+		55 = (? CHRONO KEY){cannot drop , cannot trade , cannot sell to npc}<br>
+		19 = (? FB Tabs){cannot drop , cannot trade}<br>
+		8 = (? Clothing/Binding Charm){}<br>
+		1 = (? Revival Scroll){}<br>
+		<br>
+		~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~<br>
+		Expire Date:<br>
+		value is equal to the unix clock time you want the item to expire<br>
+		ie...<br>
+		to get current unix time type "date +%s"<br>
+		(or... (it) is the time in seconds that have elapsed since 01-01-1970 00:00:00 UTC)<br>
+		add the amount of time you want the item to last, in seconds, to current unix time<br>
+		(ie. 7 days = 604800 seconds, so you would add 604800 to current time)<br>
+		<br>
+		~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~<br>
+		</div>
+	</div>
+</div>
 
 </body>
-
 </html>
