@@ -1,0 +1,414 @@
+/* General Body Styles */
+body {
+    background-color: #121212;
+    color: #e0e0e0;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-size: 16px;
+    line-height: 1.6;
+}
+
+/* Links */
+a {
+    color: #64b5f6;
+    text-decoration: none;
+}
+
+a:hover {
+    color: #42a5f5;
+}
+
+/* Style for message based on error and success cases */
+.notification.is-danger {
+    background-color: #b71c1c;
+    color: #fff;
+}
+
+.notification.is-success {
+    background-color: #1e88e5;
+    color: #fff;
+}
+
+/* Navbar Styles */
+.navbar {
+    background-color: #1c1c1c;
+    border-bottom: 1px solid #333;
+}
+
+.navbar-item {
+    color: #e0e0e0;
+}
+
+.navbar-item:hover {
+    color: #bbdefb;
+}
+
+.button {
+    transition: background-color 0.3s, color 0.3s;
+}
+
+.button.is-danger {
+  background-color: #d32f2f;
+  color: #fff;
+}
+
+.button.is-active {
+    background-color: #424242;
+    color: #fff;
+}
+
+/* Section and Container */
+.section {
+    padding: 2rem 1.5rem;
+    background-color: #121212;
+}
+
+.container {
+    background-color: #1c1c1c;
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+    padding: 1.5rem;
+}
+
+/* Headings */
+h1, h2, h3, h4, h5, h6 {
+    color: #ffffff;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+}
+
+/* Scroll Wheel */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: #616161;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background-color: #757575;
+}
+
+::-webkit-scrollbar-track {
+  background-color: #1c1c1c;
+  border-radius: 4px;
+}
+
+/* Additional Bulma tweaks */
+.table {
+    color: #e0e0e0;
+}
+
+.table a {
+  color: #64b5f6;
+}
+
+.input, .textarea, .select select {
+    background-color: #1c1c1c;
+    border-color: #424242;
+    color: #e0e0e0;
+}
+
+.input:focus, .textarea:focus, .select select:focus {
+    border-color: #64b5f6;
+}
+
+/* Card Styles */
+.card {
+  background-color: #1c1c1c;
+  color: #e0e0e0;
+  border-radius: 5px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+}
+
+.card-header {
+  background-color: #2c2c2c;
+  color: #e0e0e0;
+  padding: 0.75rem;
+  border-bottom: 1px solid #424242;
+}
+
+.card-content {
+  padding: 1rem;
+}
+
+/* Box Styles */
+.box {
+ background-color: #1c1c1c;
+ border-radius: 5px;
+ color: #e0e0e0;
+}
+
+.box .tag.is-success {
+    background-color: #1e88e5;
+    color: #fff;
+}
+
+/* Specific Text Colors within the boxes */
+.box h3, .box p {
+ color: #e0e0e0;
+}
+
+.box strong {
+ color: #ffffff;
+}
+
+/* Server Rate Editor Page */
+.server-rate-editor-box {
+    background-color: #1c1c1c;
+    color: #e0e0e0;
+    border-radius: 10px;
+    padding: 1rem;
+}
+
+.server-rate-input {
+    background-color: #2c2c2c;
+    color: #e0e0e0;
+    border: 1px solid #424242;
+}
+
+.server-rate-help {
+    color: #9e9e9e;
+}
+
+.server-rate-save-button {
+    background-color: #1e88e5;
+    color: #fff;
+    border: none;
+    padding: 0.5rem 1rem;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.server-rate-save-button:hover {
+    background-color: #1565c0;
+}
+
+/* Trace Log */
+.trace-log-area {
+    background-color: #2c2c2c;
+    color: #e0e0e0;
+    border-radius: 5px;
+    padding: 10px;
+    margin-top: 10px;
+}
+
+.trace-log-area h3 {
+    color: #ffffff;
+    margin-bottom: 5px;
+}
+
+/* Labels */
+.label {
+    color: #e0e0e0;
+}
+
+h1.title.has-text-centered {
+    color: #ffffff;
+}
+
+/* Role List Page */
+.role-list-table {
+    background-color: #1c1c1c;
+    color: #e0e0e0;
+}
+
+.role-list-table thead th {
+    background-color: #2c2c2c;
+    color: #ffffff;
+}
+
+.debug-output {
+    background-color: #2c2c2c;
+    color: #e0e0e0;
+    border-radius: 5px;
+    padding: 10px;
+    margin-top: 10px;
+}
+
+.debug-output h3 {
+    color: #ffffff;
+    margin-bottom: 5px;
+}
+
+.role-list-table td, .pagination a, .pagination-link {
+    color: #e0e0e0;
+}
+
+.role-list-table tbody tr {
+    background-color: #1c1c1c !important;
+}
+
+.pagination a, .pagination-link {
+   background-color: #1e88e5;
+   color: white;
+   border-color: #1565c0;
+}
+
+/* Account management */
+.account-management-box {
+    background-color: #1c1c1c;
+    color: #e0e0e0;
+    border-radius: 5px;
+    padding: 1rem;
+    margin-bottom: 1rem;
+}
+
+.account-input, .account-select select {
+    background-color: #2c2c2c;
+    border: 1px solid #424242;
+    color: #e0e0e0;
+}
+
+.account-button {
+    background-color: #1e88e5;
+    color: #fff;
+    border: none;
+}
+
+.account-button:hover {
+    background-color: #1565c0;
+}
+
+.account-browse-box {
+    background-color: #2c2c2c;
+    border-radius: 5px;
+    padding: 1rem;
+}
+
+.account-table {
+    background-color: #2c2c2c;
+    color: #e0e0e0;
+}
+
+.account-table th {
+    background-color: #424242;
+    color: #ffffff;
+}
+
+/* GM Access */
+.has-text-danger {
+    color: #b71c1c !important;
+}
+
+/* Headings inside account management boxes */
+.account-management-box h2.title {
+    color: #ffffff;
+}
+
+/* Settings Page */
+.settings-table {
+    background-color: #1c1c1c;
+    color: #e0e0e0;
+}
+
+.settings-table td {
+    border: none;
+}
+
+.settings-table td:first-child {
+    width: 30%;
+}
+
+.settings-button {
+    background-color: #1e88e5;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+}
+
+.settings-button:hover {
+    background-color: #1565c0;
+}
+
+.settings-table .has-text-light {
+    color: #e0e0e0 !important;
+}
+
+/* Credits Text */
+.settings-credits {
+    color: #9e9e9e;
+    font-size: 0.8em;
+    margin-top: 1rem;
+    text-align: center;
+}
+
+/* RoleXML Page */
+.message-box-tr {
+     background-color: #1c1c1c;
+}
+
+.textarea-td {
+  background-color: #2c2c2c;
+}
+
+.xml-textarea {
+    min-height: 400px;
+    width: 100%;
+    box-sizing: border-box;
+    padding: 0.75rem;
+    border: 1px solid #424242;
+    border-radius: 5px;
+    background-color: #1c1c1c;
+    color: #e0e0e0;
+    font-family: monospace;
+    font-size: 14px;
+    resize: vertical;
+    overflow: auto;
+    white-space: pre;
+}
+
+.save-button-td {
+     background-color: #2c2c2c;
+}
+
+.debug-output {
+    background-color: #1c1c1c;
+    border-radius: 5px;
+    color: #e0e0e0;
+    font-family: monospace;
+    font-size: 0.8em;
+    word-wrap: break-word;
+    white-space: pre-wrap;
+    padding: 10px;
+}
+
+.parsed-data-h1 {
+    color: #e0e0e0;
+    font-size: 1.5em;
+    margin-top: 20px;
+    border-bottom: 1px solid #424242;
+    padding-bottom: 5px;
+}
+
+.section-header {
+    color: #e0e0e0;
+    font-size: 1.2em;
+    margin-top: 15px;
+}
+
+.item-header {
+    color: #bdbdbd;
+    font-size: 1em;
+    margin-top: 10px;
+}
+
+.parsed-data-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 15px;
+}
+
+.parsed-data-table th, .parsed-data-table td {
+    border: 1px solid #424242;
+    padding: 8px;
+    text-align: left;
+    color: #e0e0e0;
+}
+
+.parsed-data-table th {
+    background-color: #2c2c2c;
+    color: #ffffff;
+}

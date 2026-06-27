@@ -1,0 +1,7 @@
+Wed Jan 29 17:20:33 CST 2025: Starting Icon Manager
+Wed Jan 29 17:20:33 CST 2025: Admin mode detected
+Wed Jan 29 17:20:33 CST 2025: Database Connection Successful.
+Wed Jan 29 17:20:33 CST 2025: Executing Query: SELECT role_name, faction_id FROM roles WHERE role_faction_rank=2
+Wed Jan 29 17:20:33 CST 2025: No Factions found 
+Wed Jan 29 17:20:33 CST 2025: Factions retrieved successfully, Faction Count = 0 
+Wed Jan 29 17:20:33 CST 2025: Icon Manager Finished.

@@ -1,0 +1,8 @@
+Changelog:
+fix role.jsp design
+fix rolexml.jsp design
+added rolegui.jsp
+adds new database item.txt and new_icon pack, look inside the include folder
+index.jsp adjustment for rolegui page
+serverctrl.jsp adds over 110 map lists for version 173
+

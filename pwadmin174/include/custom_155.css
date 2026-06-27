@@ -1,0 +1,597 @@
+/* Specific styles for /155/ pages to override the default CSS */
+
+/* General Body Styles */
+body {
+    background-color: #1a1a1a !important;
+    color: #eee !important;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif !important;
+    font-size: 16px !important;
+    line-height: 1.6 !important;
+    transition: background-color 0.3s, color 0.3s !important;
+    margin: 0 !important; /* Added for full background */
+    height: 100% !important; /* Added for full background */
+    display: flex !important;
+    flex-direction: column !important;
+    overflow: auto !important;
+}
+
+html {
+    height: 100%;
+    overflow: auto !important;
+}
+
+
+/* Links */
+a {
+    color: #4fc3f7 !important;
+    text-decoration: none !important;
+}
+
+/* Style for message based on error and success cases */
+.notification.is-danger {
+    background-color: #c62828 !important; /* A darker red */
+    color: #fff !important;
+}
+
+.notification.is-success {
+    background-color: #2e7d32 !important; /* A darker green */
+    color: #fff !important;
+}
+
+a:hover {
+    color: #81d4fa !important;
+}
+
+/* Navbar Styles */
+.navbar {
+    background-color: #222 !important;
+    border-bottom: 1px solid #333 !important;
+}
+
+.navbar-item {
+    color: #ddd !important;
+}
+
+.navbar-item:hover {
+    color: #fff !important;
+}
+
+.button {
+    transition: background-color 0.3s, color 0.3s !important;
+}
+
+.button.is-danger {
+    background-color: #d32f2f !important;
+}
+
+.button.is-active {
+    background-color: #555 !important;
+    color: #fff !important;
+}
+
+/* Section and Container */
+.section {
+    padding: 2rem 1.5rem !important;
+    background-color: transparent !important;
+}
+
+.container {
+    background-color: #292929 !important;
+    border-radius: 5px !important;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5) !important; /* Added shadow */
+    padding: 1.5rem !important;
+    min-height: calc(100vh - 120px) !important;
+    margin-bottom: 0 !important;
+    width: 90% !important; /* Centering */
+    max-width: 1200px !important; /* Centering */
+    margin: 20px auto !important; /* Centering */
+    border: 1px solid #555 !important; /*Added border*/
+    flex: 1 !important;
+}
+
+/* Headings */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    color: #fff !important;
+    font-weight: 600 !important;
+    margin-bottom: 0.5rem !important;
+}
+
+/* Dark Scroll Wheel */
+::-webkit-scrollbar {
+    width: 8px !important;
+    height: 8px !important;
+}
+
+::-webkit-scrollbar-thumb {
+    background-color: #444 !important;
+    border-radius: 4px !important;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background-color: #555 !important;
+}
+
+::-webkit-scrollbar-track {
+    background-color: #222 !important;
+    border-radius: 4px !important;
+}
+
+/* Additional Bulma tweaks */
+.table {
+    color: #eee !important;
+}
+
+.table a {
+    color: #eee !important;
+}
+
+.input,
+.textarea,
+.select select {
+    background-color: #333 !important;
+    border-color: #555 !important;
+    color: #eee !important;
+}
+
+.input:focus,
+.textarea:focus,
+.select select:focus {
+    border-color: #4fc3f7 !important;
+}
+
+/* Card Styles - For the daemon boxes */
+.card {
+    background-color: #333 !important;
+    color: #eee !important;
+    border-radius: 5px !important;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3) !important;
+}
+
+.card-header {
+    background-color: #444 !important;
+    color: #eee !important;
+    padding: 0.75rem !important;
+    border-bottom: 1px solid #555 !important;
+}
+
+.card-content {
+    padding: 1rem !important;
+}
+
+/*Daemon Box Styles*/
+.box {
+    background-color: #333 !important;
+    border-radius: 5px !important;
+    color: #eee !important; /* Set default text color in boxes to light gray */
+}
+
+/* Status indicator text - IMPROVED READABILITY */
+.box .tag.is-success {
+    /* Target the Bulma "is-success" tag */
+    background-color: #007bff !important; /* Blue background */
+    color: #fff !important; /* White text */
+}
+
+/* Specific Text Colors within the boxes */
+.box h3,
+.box p {
+    /*Target Headers and Paragraphs inside the box*/
+    color: #ddd !important; /* Light gray color */
+}
+
+/* Target the strong tag inside of the box */
+.box strong {
+    color: #fff !important; /* Makes the daemon text more readable */
+}
+
+/* ---------- Server Rate Editor Page ---------- */
+
+.server-rate-editor-box {
+    background-color: #333 !important; /* Darker background */
+    color: #eee !important;
+    border-radius: 10px !important;
+    padding: 1rem !important;
+}
+
+.server-rate-input {
+    background-color: #444 !important;
+    color: #eee !important;
+    border: 1px solid #555 !important;
+}
+
+.server-rate-help {
+    color: #aaa !important;
+}
+
+.server-rate-save-button {
+    background-color: #007bff !important;
+    color: #fff !important;
+    border: none !important;
+    padding: 0.5rem 1rem !important;
+    border-radius: 5px !important;
+    cursor: pointer !important;
+}
+
+.server-rate-save-button:hover {
+    background-color: #0056b3 !important;
+}
+
+/* Styles for Trace Log */
+.trace-log-area {
+    background-color: #444 !important; /* Dark gray background */
+    color: #eee !important; /* Light grey text */
+    border-radius: 5px !important; /* Rounded corners */
+    padding: 10px !important; /* Spacing around content */
+    margin-top: 10px !important; /* Spacing above the area */
+}
+
+.trace-log-area h3 {
+    color: #fff !important; /* White heading text */
+    margin-bottom: 5px !important; /* Spacing below heading */
+}
+
+/* Style the message based on error */
+.notification.is-danger {
+    background-color: #c62828 !important; /* A darker red */
+    color: #fff !important;
+}
+
+/* Styles for the labels */
+.label {
+    color: #eee !important;
+}
+
+h1.title.has-text-centered {
+    color: #fff !important; /* Set a white color for the heading */
+}
+
+/* ---------- Role List Page ---------- */
+
+.role-list-table {
+    background-color: #333 !important;
+    color: #eee !important;
+}
+
+.role-list-table thead th {
+    background-color: #444 !important;
+    color: #fff !important;
+}
+
+.debug-output {
+    background-color: #444 !important; /* Dark gray background */
+    color: #eee !important; /* Light grey text */
+    border-radius: 5px !important; /* Rounded corners */
+    padding: 10px !important; /* Spacing around content */
+    margin-top: 10px !important; /* Spacing above the area */
+    display: none !important;
+}
+
+.debug-output h3 {
+    color: #fff !important; /* White heading text */
+    margin-bottom: 5px !important; /* Spacing below heading */
+}
+
+.role-list-table td,
+.pagination a,
+.pagination-link {
+    color: #eee !important; /* Set a white color for the text */
+}
+
+/* Set same dark background for all table rows */
+.role-list-table tbody tr {
+    background-color: #333 !important; /* Same as table background */
+}
+
+.pagination a,
+.pagination-link {
+    background-color: #007bff !important; /* New link background */
+    color: white !important; /* White link text */
+    border-color: #0056b3 !important; /* Darken a bit */
+}
+
+/* Account management CSS*/
+
+.account-management-box {
+    background-color: #333 !important; /* Dark background for boxes */
+    color: #eee !important;
+    border-radius: 5px !important;
+    padding: 1rem !important;
+    margin-bottom: 1rem !important;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5) !important; /* Add shadow */
+	border: 1px solid #555 !important; /*Add border*/
+
+}
+
+.account-input,
+.account-select select {
+    background-color: #444 !important; /* Dark input background */
+    border: 1px solid #555 !important;
+    color: #eee !important;
+}
+
+.account-button {
+    background-color: #007bff !important; /* Primary button color */
+    color: #fff !important;
+    border: none !important;
+}
+
+.account-button:hover {
+    background-color: #0056b3 !important;
+}
+
+.account-browse-box {
+    background-color: #444 !important;
+    border-radius: 5px !important;
+    padding: 1rem !important;
+}
+
+.account-table {
+    background-color: #444 !important; /* Slightly lighter to differentiate */
+    color: #eee !important;
+}
+
+.account-table th {
+    background-color: #555 !important;
+    color: #fff !important;
+}
+
+/*GM Access */
+.has-text-danger {
+    color: #b71c1c !important; /*Dark red*/
+}
+
+/* Headings inside account management boxes */
+.account-management-box h2.title {
+    color: #fff !important; /* White text */
+}
+
+/* CSS FOR SETTINGS PAGE*/
+.settings-table {
+    background-color: #444 !important; /* Darker background for the table */
+    color: #eee !important; /* Light text for the table */
+}
+
+.settings-table td {
+    border: none !important; /* Remove borders */
+    padding-top: 0.3rem !important;
+    padding-bottom: 0.3rem !important;
+}
+
+.settings-table td:first-child {
+    width: 30% !important; /* Adjust width of first column as needed */
+    padding-top: 0.5rem !important;
+}
+
+.settings-button {
+    background-color: #007bff !important;
+    color: #fff !important;
+    border: none !important;
+    border-radius: 5px !important;
+    margin-top: 0.5rem !important;
+    padding: 0.5rem 1rem !important;
+}
+
+.settings-button:hover {
+    background-color: #0056b3 !important;
+}
+
+.settings-table .has-text-light {
+    color: #eee !important; /* Ensure text is light */
+}
+
+/* Styles for the credits text */
+.settings-credits {
+    color: #aaa !important; /* Light grey text */
+    font-size: 0.8em !important; /* Smaller size */
+    margin-top: 1rem !important; /* Space above */
+    text-align: center !important; /* Center the text */
+}
+
+/* CSS FOR ROLEXML PAGE */
+
+.has-text-danger {
+    color: #ff4136 !important; /* Ensure error messages are visible */
+}
+
+.message-box-tr {
+    background-color: #333 !important;
+}
+
+.textarea-td {
+    background-color: #444 !important;
+}
+
+.xml-textarea {
+    min-height: 400px !important;
+    width: 100% !important;
+    box-sizing: border-box !important;
+    padding: 0.75rem !important;
+    border: 1px solid #555 !important;
+    border-radius: 5px !important;
+    background-color: #222 !important;
+    color: #eee !important;
+    font-family: monospace !important;
+    font-size: 14px !important;
+    resize: vertical !important;
+    overflow: auto !important;
+    /* ADD HORIZONTAL SCROLL */
+    white-space: pre !important; /* ADD HORIZONTAL SCROLL */
+}
+
+.save-button-td {
+    background-color: #444 !important;
+}
+
+.debug-output {
+    background-color: #333 !important;
+    border-radius: 5px !important;
+    color: #eee !important;
+    font-family: monospace !important;
+    font-size: 0.8em !important;
+    word-wrap: break-word !important;
+    white-space: pre-wrap !important;
+    padding: 10px !important;
+}
+
+.parsed-data-h1 {
+    color: #eee !important;
+    font-size: 1.5em !important;
+    margin-top: 20px !important;
+    border-bottom: 1px solid #666 !important;
+    padding-bottom: 5px !important;
+}
+
+.section-header {
+    color: #eee !important;
+    font-size: 1.2em !important;
+    margin-top: 15px !important;
+}
+
+.item-header {
+    color: #ccc !important;
+    font-size: 1em !important;
+    margin-top: 10px !important;
+}
+
+.parsed-data-table {
+    width: 100% !important;
+    border-collapse: collapse !important;
+    margin-bottom: 15px !important;
+}
+
+.parsed-data-table th,
+.parsed-data-table td {
+    border: 1px solid #555 !important;
+    padding: 8px !important;
+    text-align: left !important;
+    color: #ddd !important;
+}
+
+.parsed-data-table th {
+    background-color: #444 !important;
+    color: #fff !important;
+}
+
+/* SERVER CONFIGURATION PAGE STYLES */
+
+.server-box-container {
+    display: grid !important;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)) !important;
+    /* Adaptable columns */
+    gap: 1rem !important;
+    /* Space between boxes */
+    margin-top: 1rem !important;
+    /* Add a top margin */
+    background-color: transparent !important;
+    /* To keep the correct background */
+}
+
+.server-box {
+    background-color: #333 !important;
+    /* A slightly darker background */
+    color: #ddd !important;
+    /* White text for contrast */
+    padding: 0.7rem !important;
+    /* Add some spacing inside the boxes */
+    border-radius: 5px !important;
+    /* Rounded corners */
+    display: flex !important;
+    flex-direction: column !important;
+    justify-content: space-between !important;
+    border: 1px solid #555 !important;
+}
+
+
+.server-box-row {
+    margin-bottom: 0.5em !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: space-between !important;
+}
+
+
+.server-box-label {
+    flex: 1 !important;
+    color: #eee !important; /*Added color */
+}
+
+.server-box-input,
+.server-select-dropdown {
+    background-color: #444 !important;
+    color: #eee !important;
+    border: 1px solid #555 !important;
+    flex: 1 !important;
+    /*Added flex to keep the text on a single line*/
+    margin-left: 0.5em !important;
+    padding: 0.2rem !important;
+}
+
+
+.server-box-checkbox {
+    margin-left: 0.5em !important;
+}
+
+.server-box-button {
+    background-color: #007bff !important;
+    color: #fff !important;
+    border: none !important;
+    padding: 0.3rem 0.6rem !important;
+    border-radius: 5px !important;
+    cursor: pointer !important;
+    margin-left: 0.5em !important;
+}
+
+.server-box-button:hover {
+    background-color: #0056b3 !important;
+}
+
+/* Status text at the beginning of the box */
+.status-text {
+    color: #ccc !important;
+    margin-bottom: 0.5em !important;
+}
+
+.status-text.is-danger {
+    color: #ff0000 !important; /*red*/
+}
+
+.server-rate-editor-box {
+    background-color: #333 !important;
+    color: #eee !important;
+    border-radius: 10px !important;
+    padding: 1rem !important;
+}
+
+.server-rate-input {
+    background-color: #444 !important;
+    color: #eee !important;
+    border: 1px solid #555 !important;
+}
+
+.server-rate-help {
+    color: #aaa !important;
+}
+
+.server-rate-save-button {
+    background-color: #007bff !important;
+    color: #fff !important;
+    border: none !important;
+    padding: 0.5rem 1rem !important;
+    border-radius: 5px !important;
+    cursor: pointer !important;
+}
+
+.server-rate-save-button:hover {
+    background-color: #0056b3 !important;
+}
+
+.server-select-dropdown {
+    background-color: #444 !important;
+    color: #eee !important;
+    border: 1px solid #555 !important;
+}
